@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {AppBar, Toolbar, Grid, Card, CardMedia, CardContent, CircularProgress} from '@material-ui/core'
+import {AppBar, Toolbar, Grid, Card, CardMedia, CardContent, CircularProgress, Typography, CardHeader, Avatar} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import DummyPokemon from '../Dummy/DummyPokemon'
 //6min 50sec
@@ -11,8 +11,15 @@ const useStyles = makeStyles({
     },
     marginAuto : {
         margin: 'auto'
+    },
+    avatar: {
+        backgroundColor: '#fcf403',
+        color: '#ad0940'
     }
 })
+
+const tofirstCharUppercase = name => 
+    name.charAt(0).toUpperCase() + name.slice(1)
 
 const Pokedex = () => {
     const classes = useStyles();
@@ -31,6 +38,11 @@ const Pokedex = () => {
             <Card
                  className={classes.marginAuto}
             >
+                <CardHeader
+                avatar={
+                    <Avatar aria-label="pokemonId" className={classes.avatar}>
+                      {id}
+                    </Avatar>}/>
             <CardMedia
                 image={gif}
                 style={{width: '130px', height: '130px', marginTop:'20px'}}
@@ -41,8 +53,9 @@ const Pokedex = () => {
             <CardContent
                 className={classes.marginAuto}
             >
-                <h1 className={classes.marginAuto}
-                style={{textAlign: 'center'}}>{name}</h1>
+                <Typography style={{textAlign: 'center'}}
+>{tofirstCharUppercase(name)}
+                </Typography>
             </CardContent>
             </Card>
         </Grid>
