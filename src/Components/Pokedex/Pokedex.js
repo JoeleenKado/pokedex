@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import {AppBar, Toolbar, Grid, Card, CardMedia, CardContent, CircularProgress, Typography, CardHeader, Avatar} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import DummyPokemon from '../Dummy/DummyPokemon'
+import {Capitalize} from '../Constant/Constant'
+
 //6min 50sec
 const useStyles = makeStyles({
     pokedexContainer : {
@@ -10,7 +12,8 @@ const useStyles = makeStyles({
         paddingRight: '50px'
     },
     marginAuto : {
-        margin: 'auto'
+        margin: 'auto',
+    
     },
     avatar: {
         backgroundColor: '#fcf403',
@@ -18,10 +21,9 @@ const useStyles = makeStyles({
     }
 })
 
-const tofirstCharUppercase = name => 
-    name.charAt(0).toUpperCase() + name.slice(1)
 
-const Pokedex = () => {
+const Pokedex = props => {
+    const {history} = props
     const classes = useStyles();
    const [pokemonData, setPokemonData] = useState(DummyPokemon)
    
@@ -34,7 +36,7 @@ const Pokedex = () => {
         const gif = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`
     
     return(
-        <Grid item xs={4} key={pokemonId}>
+        <Grid item xs={4} key={pokemonId} spacing={1}>
             <Card
                  className={classes.marginAuto}
             >
@@ -43,7 +45,7 @@ const Pokedex = () => {
                     <Avatar aria-label="pokemonId" className={classes.avatar}>
                       {id}
                     </Avatar>}/>
-            <CardMedia
+            <CardMedia onClick= {()=>history.push(`/${pokemonId}`)}
                 image={gif}
                 style={{width: '130px', height: '130px', marginTop:'20px'}}
                 className={classes.marginAuto}
@@ -54,7 +56,7 @@ const Pokedex = () => {
                 className={classes.marginAuto}
             >
                 <Typography style={{textAlign: 'center'}}
->{tofirstCharUppercase(name)}
+>{Capitalize(name)}
                 </Typography>
             </CardContent>
             </Card>
